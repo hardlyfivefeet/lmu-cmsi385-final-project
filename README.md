@@ -21,7 +21,7 @@ q0:a->q0
 To run the simulator for the string "aabbbbaa", run the following in the command line:
 
 ```
-python3 NFASimulator.py aabbbbaa < nfa.txt
+python3 NFASimulator.py aabbbbaa < nfa_description.txt
 ```
 
 The simulator will then output whether or not the string "aabbbbaa" is accepted by the language of the NFA described in `nfa.txt`.
