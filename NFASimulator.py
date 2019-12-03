@@ -57,6 +57,6 @@ else:
 
     machine = NFA(all_states, alphabet, transition_function, start_state, accept_states)
     if machine.accept(string_to_check):
-        print("The language of the machine does not accept the string " + string_to_check)
+        print("This machine accepts the string " + string_to_check)
     else:
-        print("The language of the machine does accept the string " + string_to_check)
+        print("This machine does not accept the string " + string_to_check)

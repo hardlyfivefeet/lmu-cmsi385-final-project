@@ -13,14 +13,11 @@ class NFA:
         return set()
 
     def accept(self, string):
-        # initialize a list of current_states
         current_states = set()
-        # if string is empty:
+        # if the input string is empty
         if not string:
             # if there is a lambda move from the start state, put the new state(s) in current_states
-            new_states = self.transition(self.start_state, "")
-            if len(new_states) != 0:
-                current_states.update(new_states)
+            current_states.update(self.transition(self.start_state, ""))
         else:
             current_states.add(self.start_state)
             for char in string:
@@ -35,7 +32,6 @@ class NFA:
                     for state in current_states:
                         new_states.update(self.transition(state, char))
                     current_states = new_states
-        # check if current_states contain goal state
         for accept_state in self.accept_states:
             if accept_state in current_states:
                 return True
