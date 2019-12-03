@@ -6,24 +6,37 @@ class NFA:
         self.start_state = start_state
         self.accept_states = accept_states
 
+    def transition(self, state, a):
+        if state in self.transitions:
+            if a in self.transitions[state]:
+                return set(self.transitions[state][a])
+        return set()
+
     def accept(self, string):
         # initialize a list of current_states
-        # initialize current_state_under_consideration
-        # put the start state into current_states
+        current_states = set()
         # if string is empty:
+        if not string:
             # if there is a lambda move from the start state, put the new state(s) in current_states
-        # else
-            # for each char in the string
-                # if current_states is empty, break
-                # else, for each state in current_states
-                    # current_state_under_consideration = state
-                    # remove state from current states
-                    # check if there is a transition from current_state_under_consideration for this char
-                        # if there isn't, don't do anything
-                        # else, add the new state(s) into current_states (if they aren't already in there)
-                    # also check if there is a lambda move for current_state_under_consideration
-                        # if there isn't, don't do anything
-                        # else, add the new state(s) into current_states (if they aren't already in there)
+            new_states = self.transition(self.start_state, "")
+            if len(new_states) != 0:
+                current_states.update(new_states)
+        else:
+            current_states.add(self.start_state)
+            for char in string:
+                if len(current_states) == 0:
+                    break
+                else:
+                    # add states that you can get to with lambda moves into current_states
+                    for state in current_states:
+                        lambda_move_states = self.transition(state, "")
+                    current_states.update(lambda_move_states)
+                    new_states = set()
+                    for state in current_states:
+                        new_states.update(self.transition(state, char))
+                    current_states = new_states
         # check if current_states contain goal state
-            # if yes, return true
-        return false
+        for accept_state in self.accept_states:
+            if accept_state in current_states:
+                return True
+        return False
