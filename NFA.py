@@ -1,3 +1,5 @@
+import copy
+
 class NFA:
     def __init__(self, states, alphabet, transitions, start_state, accept_states):
         self.states = states
@@ -5,6 +7,18 @@ class NFA:
         self.transitions = transitions
         self.start_state = start_state
         self.accept_states = accept_states
+
+    def update_states_for_lambda_moves(self, current_states):
+        states_to_consider = list(copy.deepcopy(current_states))
+        updated_current_states = set()
+        while len(states_to_consider) > 0:
+            for state in states_to_consider:
+                if not state in updated_current_states and state in self.transitions:
+                    if "" in self.transitions[state]:
+                        states_to_consider.extend(self.transitions[state][""])
+                updated_current_states.add(state)
+                states_to_consider.remove(state)
+        return updated_current_states
 
     def transition(self, state, a):
         if state in self.transitions:
@@ -24,14 +38,11 @@ class NFA:
                 if len(current_states) == 0:
                     break
                 else:
-                    # add states that you can get to with lambda moves into current_states
-                    for state in current_states:
-                        lambda_move_states = self.transition(state, "")
-                    current_states.update(lambda_move_states)
+                    updated_current_states = self.update_states_for_lambda_moves(current_states)
                     new_states = set()
-                    for state in current_states:
+                    for state in updated_current_states:
                         new_states.update(self.transition(state, char))
-                    current_states = new_states
+                    current_states = self.update_states_for_lambda_moves(new_states)
         for accept_state in self.accept_states:
             if accept_state in current_states:
                 return True
