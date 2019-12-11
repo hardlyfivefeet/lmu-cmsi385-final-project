@@ -74,5 +74,26 @@ class NFATests(unittest.TestCase):
             result = NFASimulator.simulate_machine()
             self.assertFalse(result)
 
+    def test_divisible_by_two_pass(self):
+        with open('test_machines/binary_divisible_by_two.txt', 'r') as test_file:
+            sys.stdin = test_file
+            sys.argv = ['', '1110010']
+            result = NFASimulator.simulate_machine()
+            self.assertTrue(result)
+
+    def test_divisible_by_two_empty_string(self):
+        with open('test_machines/binary_divisible_by_two.txt', 'r') as test_file:
+            sys.stdin = test_file
+            sys.argv = ['', '']
+            result = NFASimulator.simulate_machine()
+            self.assertTrue(result)
+
+    def test_divisible_by_two_fail(self):
+        with open('test_machines/binary_divisible_by_two.txt', 'r') as test_file:
+            sys.stdin = test_file
+            sys.argv = ['', '001001']
+            result = NFASimulator.simulate_machine()
+            self.assertFalse(result)
+
 if __name__ == '__main__':
     unittest.main()
