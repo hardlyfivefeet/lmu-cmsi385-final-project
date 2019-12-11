@@ -18,10 +18,10 @@ q0->q2
 q0:a->q0
 ```
 
-To run the simulator for the string "aabbbbaa", run the following in the command line:
+To run the simulator for the string "aabbbbaa" and machine description "nfa_description.txt", run the following in the command line:
 
 ```
 python3 NFASimulator.py aabbbbaa < nfa_description.txt
 ```
 
-The simulator will then output whether or not the string "aabbbbaa" is accepted by the language of the NFA described in `nfa.txt`.
+The simulator will then output whether or not the string "aabbbbaa" is accepted by the language of the NFA described in "nfa_description.txt".
