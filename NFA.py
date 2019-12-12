@@ -31,7 +31,6 @@ class NFA:
         current_states.add(self.start_state)
         # if the input string is empty
         if not string:
-            # if there is a lambda move from the start state, put the new state(s) in current_states
             current_states.update(self.transition(self.start_state, ""))
         else:
             for char in string:

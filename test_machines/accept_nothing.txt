@@ -1,0 +1,13 @@
+START=q0;ACCEPT=q3
+
+q0:a->q1
+
+q0:b->q0
+
+q1:c->q1
+
+q2:a->q1
+
+q2:b->q1
+
+q2->q3
