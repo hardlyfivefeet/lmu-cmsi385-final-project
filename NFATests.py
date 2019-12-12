@@ -95,5 +95,19 @@ class NFATests(unittest.TestCase):
             result = NFASimulator.simulate_machine()
             self.assertFalse(result)
 
+    def test_divisible_by_five_pass(self):
+        with open('test_machines/binary_divisible_by_five.txt', 'r') as test_file:
+            sys.stdin = test_file
+            sys.argv = ['', '1111']
+            result = NFASimulator.simulate_machine()
+            self.assertTrue(result)
+
+    def test_divisible_by_five_empty_string(self):
+        with open('test_machines/binary_divisible_by_five.txt', 'r') as test_file:
+            sys.stdin = test_file
+            sys.argv = ['', '0010']
+            result = NFASimulator.simulate_machine()
+            self.assertFalse(result)
+
 if __name__ == '__main__':
     unittest.main()
